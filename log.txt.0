@@ -1,0 +1,41 @@
+2022-02-26 23:25:29 INFO server.Server run Initializing HTTP Server
+2022-02-26 23:25:29 FINE sun.net.httpserver.ServerImpl <init> HttpServer created http 0.0.0.0/0.0.0.0:8080
+2022-02-26 23:25:29 INFO server.Server run Creating contexts
+2022-02-26 23:25:29 FINE sun.net.httpserver.ServerImpl createContext context created: /user/register
+2022-02-26 23:25:29 FINE sun.net.httpserver.ServerImpl createContext context created: /
+2022-02-26 23:25:29 INFO server.Server run Starting server
+2022-02-26 23:25:29 INFO server.Server run Server started
+2022-02-26 23:25:33 FINE sun.net.httpserver.ServerImpl$Exchange run Exchange request line: POST /user/register/ HTTP/1.1
+2022-02-26 23:25:33 INFO handler.Handler handle THIS IS A POST REQUEST!
+2022-02-26 23:25:33 INFO handler.Handler castToolsAndRunService In castToolsAndRunService
+2022-02-26 23:25:33 INFO handler.Handler castToolsAndRunService Printing request: Username: s, Password: hello, Email: bros@gmail.com, Firstname: Spencer, Lastname: Brosnahan, Gender: m
+2022-02-26 23:25:33 INFO service.RegisterService processRequest PROCESSING REQUEST
+2022-02-26 23:25:33 INFO service.RegisterService processRequest opening connection and loading data from request
+2022-02-26 23:25:33 INFO service.RegisterService processRequest Checking info from request
+2022-02-26 23:25:33 INFO service.RegisterService processRequest info was good
+2022-02-26 23:25:33 INFO service.RegisterService processRequest initializing model and dao
+2022-02-26 23:25:33 INFO service.RegisterService processRequest inserting user to database
+2022-02-26 23:25:33 INFO service.RegisterService processRequest user inserted
+2022-02-26 23:25:33 INFO service.RegisterService processRequest loading result info
+2022-02-26 23:25:33 INFO service.RegisterService processRequest Result: Username: s, personID: 143047ce-5b54-4dbd-87a2-d60d9d6b8759, authToken: null, success: true, message: null
+2022-02-26 23:25:33 INFO handler.Handler castToolsAndRunService Printing result: Username: s, personID: 143047ce-5b54-4dbd-87a2-d60d9d6b8759, authToken: null, success: true, message: null
+2022-02-26 23:25:33 INFO handler.Handler handle Attempting to print result
+2022-02-26 23:25:33 INFO handler.Handler handle Username: s, personID: 143047ce-5b54-4dbd-87a2-d60d9d6b8759, authToken: null, success: true, message: null
+2022-02-26 23:25:33 INFO handler.Handler handle successfully printed result
+2022-02-26 23:25:33 FINE sun.net.httpserver.ServerImpl logReply POST /user/register/ HTTP/1.1 [200  OK] ()
+2022-02-26 23:26:00 FINE sun.net.httpserver.ServerImpl$Exchange run Exchange request line: POST /user/register/ HTTP/1.1
+2022-02-26 23:26:00 INFO handler.Handler handle THIS IS A POST REQUEST!
+2022-02-26 23:26:00 INFO handler.Handler castToolsAndRunService In castToolsAndRunService
+2022-02-26 23:26:00 INFO handler.Handler castToolsAndRunService Printing request: Username: s, Password: hello, Email: bros@gmail.com, Firstname: Spencer, Lastname: Brosnahan, Gender: m
+2022-02-26 23:26:00 INFO service.RegisterService processRequest PROCESSING REQUEST
+2022-02-26 23:26:00 INFO service.RegisterService processRequest opening connection and loading data from request
+2022-02-26 23:26:00 INFO service.RegisterService processRequest Checking info from request
+2022-02-26 23:26:00 INFO service.RegisterService processRequest info was good
+2022-02-26 23:26:00 INFO service.RegisterService processRequest initializing model and dao
+2022-02-26 23:26:00 INFO service.RegisterService processRequest exception thrown
+2022-02-26 23:26:00 INFO service.RegisterService processRequest Username: null, personID: null, authToken: null, success: false, message: Error: User already in database
+2022-02-26 23:26:00 INFO handler.Handler castToolsAndRunService Printing result: Username: null, personID: null, authToken: null, success: false, message: Error: User already in database
+2022-02-26 23:26:00 INFO handler.Handler handle Attempting to print result
+2022-02-26 23:26:00 INFO handler.Handler handle Username: null, personID: null, authToken: null, success: false, message: Error: User already in database
+2022-02-26 23:26:00 INFO handler.Handler handle successfully printed result
+2022-02-26 23:26:00 FINE sun.net.httpserver.ServerImpl logReply POST /user/register/ HTTP/1.1 [400  Bad Request] ()

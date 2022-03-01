@@ -1,0 +1,25 @@
+2022-02-26 23:12:31 INFO server.Server run Initializing HTTP Server
+2022-02-26 23:12:31 FINE sun.net.httpserver.ServerImpl <init> HttpServer created http 0.0.0.0/0.0.0.0:8080
+2022-02-26 23:12:31 INFO server.Server run Creating contexts
+2022-02-26 23:12:31 FINE sun.net.httpserver.ServerImpl createContext context created: /user/register
+2022-02-26 23:12:31 FINE sun.net.httpserver.ServerImpl createContext context created: /
+2022-02-26 23:12:31 INFO server.Server run Starting server
+2022-02-26 23:12:31 INFO server.Server run Server started
+2022-02-26 23:12:34 FINE sun.net.httpserver.ServerImpl$Exchange run Exchange request line: POST /user/register/ HTTP/1.1
+2022-02-26 23:12:34 INFO handler.Handler handle THIS IS A POST REQUEST!
+2022-02-26 23:12:34 INFO handler.Handler castToolsAndRunService In castToolsAndRunService
+2022-02-26 23:12:35 INFO handler.Handler castToolsAndRunService Printing request: Username: s, Password: hello, Email: bros@gmail.com, Firstname: Spencer, Lastname: Brosnahan, Gender: m
+2022-02-26 23:12:35 INFO service.RegisterService processRequest PROCESSING REQUEST
+2022-02-26 23:12:35 INFO service.RegisterService processRequest opening connection and loading data from request
+2022-02-26 23:12:35 INFO service.RegisterService processRequest Checking info from request
+2022-02-26 23:12:35 INFO service.RegisterService processRequest info was good
+2022-02-26 23:12:35 INFO service.RegisterService processRequest initializing model and dao
+2022-02-26 23:12:35 INFO service.RegisterService processRequest inserting user to database
+2022-02-26 23:12:35 INFO service.RegisterService processRequest user inserted
+2022-02-26 23:12:35 INFO service.RegisterService processRequest loading result info
+2022-02-26 23:12:35 INFO service.RegisterService processRequest Result: Username: s, personID: 8c346087-b340-4c37-a295-33d9f53824a6, authToken: null, success: true, message: null
+2022-02-26 23:12:35 INFO handler.Handler castToolsAndRunService Printing result: Username: s, personID: 8c346087-b340-4c37-a295-33d9f53824a6, authToken: null, success: true, message: null
+2022-02-26 23:12:35 INFO handler.Handler handle Attempting to print result
+2022-02-26 23:12:35 INFO handler.Handler handle Username: s, personID: 8c346087-b340-4c37-a295-33d9f53824a6, authToken: null, success: true, message: null
+2022-02-26 23:12:35 INFO handler.Handler handle successfully printed result
+2022-02-26 23:12:35 FINE sun.net.httpserver.ServerImpl logReply POST /user/register/ HTTP/1.1 [200  OK] ()
