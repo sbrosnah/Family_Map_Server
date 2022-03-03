@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.xml.crypto.Data;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,8 +28,8 @@ public class UserDAOTest {
         userTwo = new User("timbrosnahan", "supbro", "danais@hotmail.com",
                 "Tim", "Brosnahan", 'm', "2");
         Connection conn = db.getConnection();
-        db.clearTables();
         userDAO = new UserDAO(conn);
+        userDAO.clear();
     }
 
     @AfterEach
@@ -72,5 +73,30 @@ public class UserDAOTest {
         User compareTestOne = userDAO.find(user.getUsername());
         User compareTestTwo = userDAO.find(userTwo.getUsername());
         assertEquals(compareTestOne, compareTestTwo);
+    }
+
+    @Test
+    public void deletePass() throws DataAccessException {
+        userDAO.insert(user);
+        userDAO.insert(userTwo);
+        User compareTest = userDAO.find(user.getUsername());
+        assertEquals(compareTest, user);
+        userDAO.delete(user.getUsername());
+        compareTest = userDAO.find(user.getUsername());
+        assertNull(compareTest);
+        compareTest = userDAO.find(userTwo.getUsername());
+        assertEquals(compareTest, userTwo);
+        userDAO.delete(userTwo.getUsername());
+        compareTest = userDAO.find(userTwo.getUsername());
+        assertNull(compareTest);
+    }
+
+    @Test
+    public void deletFail() throws DataAccessException {
+        userDAO.insert(user);
+        userDAO.delete(userTwo.getUsername());
+        User compareTest = userDAO.find(user.getUsername());
+        assertEquals(compareTest, user);
+        assertNotEquals(compareTest, userTwo);
     }
 }

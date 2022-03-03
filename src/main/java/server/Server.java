@@ -8,7 +8,6 @@ import java.net.InetSocketAddress;
 import java.util.logging.Logger;
 
 import handler.HandlerType;
-import handler.Handler;
 import handler.FileHandler;
 import handler.RegisterHandler;
 import handler.AllPersonHandler;
@@ -51,12 +50,12 @@ public class Server {
         /**
          * This creates the /user/register context and sends the request to the RegisterHandler()
          */
-        server.createContext("/user/register", new Handler(HandlerType.REGISTER));
+        server.createContext("/user/register", new RegisterHandler());
 
         //TODO: Implement all of the handlers and uncomment the contexts
-        /*
-        server.createContext("/user/login", new LoginHandler());
 
+        server.createContext("/user/login", new LoginHandler());
+        /*
         server.createContext("/clear", new ClearHandler());
 
         //TODO: figure out how to pass in the username and generations through the URL

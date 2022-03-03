@@ -1,6 +1,6 @@
 package request;
 
-public class LoginRequest implements Request{
+public class LoginRequest {
     String username;
     String password;
 

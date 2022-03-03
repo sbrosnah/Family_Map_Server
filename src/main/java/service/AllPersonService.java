@@ -1,11 +1,9 @@
 package service;
 
-import request.Request;
 import result.AllPersonResult;
 import model.AuthToken;
 import model.Person;
 import model.User;
-import result.Result;
 
 public class AllPersonService {
     /**
@@ -13,7 +11,7 @@ public class AllPersonService {
      * @param authToken
      * @return
      */
-    public Result processRequest(Request request) {return null;}
+    public AllPersonResult processRequest(String authToken) {return null;}
 
     /**
      * Gets the personID of the user of the authToken

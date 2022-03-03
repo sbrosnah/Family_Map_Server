@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import dao.EventDAO;
 import model.AuthToken;
 import dao.AuthTokenDAO;
-import request.Request;
 import result.AllEventResult;
 import result.Result;
 
@@ -16,6 +15,6 @@ public class AllEventService {
      * @param authToken
      * @return
      */
-    public Result processRequest(Request request) {return null;}
+    public AllEventResult processRequest(String authToken) {return null;}
 
 }

@@ -4,14 +4,18 @@ import model.User;
 
 import java.sql.*;
 
-public class UserDAO {
-    private final Connection conn;
+public class UserDAO extends DAO{
 
     /**
-     * Construct a UserDAO object by passing in a database connection
-     * @param conn
+     * This is the connection to the database
      */
-    public UserDAO(Connection conn) {this.conn = conn;}
+    //private final Connection conn;
+
+    public UserDAO(Connection conn) {
+        this.conn = conn;
+        tableType = "user";
+        ID = "username";
+    }
 
     /**
      * Insert a user into the database
@@ -54,10 +58,7 @@ public class UserDAO {
             stmt.setString(1, username);
             rs = stmt.executeQuery();
             if(rs.next()){
-                user = new User(rs.getString("username"), rs.getString("pWord"),
-                                rs.getString("email"), rs.getString("firstname"),
-                                rs.getString("lastname"), rs.getString("gender").charAt(0),
-                                rs.getString("personID"));
+                user = createNewUserFromResultSet(rs);
                 return user;
             }
         }catch(SQLException e){
@@ -80,12 +81,23 @@ public class UserDAO {
      * @param username string to identify which person
      * @throws DataAccessException
      */
-    public void delete(String username) throws DataAccessException {}
-
+    /*
+    public void delete(String username) throws DataAccessException {
+        String sql = "DELETE FROM user WHERE username = ?;";
+        try(PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setString(1, username);
+            stmt.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while deleting user");
+        }
+    }
+    */
     /**
      * Clear the User Table in the database
      * @throws DataAccessException
      */
+    /*
     public void clear() throws DataAccessException {
         try (Statement stmt = conn.createStatement()){
             String sql = "DELETE FROM user";
@@ -93,6 +105,16 @@ public class UserDAO {
         } catch (SQLException e) {
             throw new DataAccessException("SQL Error encountered while clearing tables");
         }
+    }
+
+     */
+
+
+    private User createNewUserFromResultSet(ResultSet rs) throws SQLException {
+        return new User(rs.getString("username"), rs.getString("pWord"),
+                rs.getString("email"), rs.getString("firstname"),
+                rs.getString("lastname"), rs.getString("gender").charAt(0),
+                rs.getString("personID"));
     }
 
 }

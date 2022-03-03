@@ -8,7 +8,6 @@ import dao.UserDAO;
 import dao.PersonDAO;
 import dao.EventDAO;
 import request.LoadRequest;
-import request.Request;
 import result.Result;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class LoadService {
      * @param request
      * @return Result object
      */
-    public Result processRequest(Request request) {return null;}
+    public Result processRequest(LoadRequest request) {return null;}
 
     /**
      * Load the users into a table

@@ -1,12 +1,10 @@
 package service;
 
-import request.Request;
 import result.Result;
 import model.User;
 import dao.UserDAO;
 import model.Person;
 import dao.PersonDAO;
-import request.Request;
 import result.Result;
 
 public class FillService {
@@ -17,5 +15,5 @@ public class FillService {
      * @param generations
      * @return a result object
      */
-    public Result processRequest(Request request) {return null;}
+    public Result processRequest(String username, int generations) {return null;}
 }

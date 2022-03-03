@@ -1,7 +1,9 @@
 package service;
 
 import dao.DataAccessException;
+import request.LoginRequest;
 import request.RegisterRequest;
+import result.LoginResult;
 import result.RegisterResult;
 import model.User;
 import dao.UserDAO;
@@ -10,33 +12,35 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.UUID;
 import java.util.logging.Logger;
-import request.Request;
-import result.Result;
 
 import dao.Database;
 
-public class RegisterService implements Service {
+public class RegisterService {
     private static Logger logger = Logger.getLogger("RegisterService");
+
+    UserDAO userDAO;
+    Database db;
+    RegisterResult result;
     /**
      * Takes a request, processes it, and then returns the result
      * @return a RegisterResult object
      */
-    public Result processRequest(Request incomingRequest){
+    public RegisterResult processRequest(RegisterRequest request){
         logger.info("PROCESSING REQUEST");
 
-        //initializing database connection
-        Database db = new Database();
+        //initializing database
+        db = new Database();
 
         //loading an empty result
-        RegisterResult result = new RegisterResult();
+        result = new RegisterResult();
 
-        //cast the request to RegisterRequest
-        RegisterRequest request;
-        request = (RegisterRequest) incomingRequest;
+
 
         try {
-            logger.info("opening connection and loading data from request");
+            logger.info("opening connection, connecting dao, and loading data from request");
             db.openConnection();
+            userDAO = new UserDAO(db.getConnection());
+
             String username = request.getUsername();
             String password = request.getPassword();
             String email = request.getEmail();
@@ -44,29 +48,38 @@ public class RegisterService implements Service {
             String lastname = request.getLastname();
             String gender = request.getGender();
 
-            logger.info("Checking info from request");
-            if (username != null || password != null || email != null || firstname != null || lastname != null || gender != null){
-                logger.info("info was good");
 
-                //TODO: check for invalid values
+            logger.info("Checking info from request");
+            if (username != null && password != null && email != null && firstname != null && lastname != null && gender != null){
+                logger.info("info was good");
 
                 String personID = UUID.randomUUID().toString();
 
-                logger.info("initializing model and dao");
+                logger.info("initializing model");
                 User user = new User(username, password, email, firstname, lastname, gender.charAt(0), personID);
-                UserDAO userDAO = new UserDAO(db.getConnection());
 
-                if(userDAO.find(username) == null){
-                    logger.info("inserting user to database");
+                logger.info("Checking if username is already in database");
+                if(checkIfUsernameDoesntExists(user.getUsername())){
+                    logger.info("Username not already in database. Inserting user to database");
                     userDAO.insert(user);
                     logger.info("user inserted");
+                    db.closeConnection(true);
+
+                    logger.info("logging user in");
+
+
+                    LoginRequest loginRequest = new LoginRequest();
+                    loginRequest.setUsername(user.getUsername());
+                    loginRequest.setPassword(user.getPassword());
+                    LoginService loginService = new LoginService();
+                    LoginResult loginResult = loginService.processRequest(loginRequest);
 
                     logger.info("loading result info");
+                    result.setAuthtoken(loginResult.getAuthToken());
                     result.setUsername(user.getUsername());
                     result.setPersonID(user.getPersonID());
                     result.setSuccess(true);
                     logger.info("Result: " + result.toString());
-                    db.closeConnection(true);
                 } else {
                     throw new Exception("User already in database");
                 }
@@ -75,21 +88,22 @@ public class RegisterService implements Service {
             }
 
         } catch(Exception ex){
+            ex.printStackTrace();
             logger.info("exception thrown");
             result.setSuccess(false);
             result.setMessage("Error: " + ex.getMessage());
             logger.info(result.toString());
-        }
-
-        try {
-            Connection conn = db.getConnection();
-            if (conn.isClosed()) {
-                db.closeConnection(false);
+        }finally {
+            try {
+                Connection conn = db.getConnection();
+                if (!conn.isClosed()) {
+                    db.closeConnection(false);
+                }
+            } catch(SQLException ex){
+                logger.info(ex.getMessage());
+            } catch(DataAccessException ex){
+                logger.info(ex.getMessage());
             }
-        } catch(SQLException ex){
-            logger.info(ex.getMessage());
-        } catch(DataAccessException ex){
-            logger.info(ex.getMessage());
         }
 
         return result;
@@ -100,7 +114,14 @@ public class RegisterService implements Service {
      * @param username
      * @return
      */
-    private boolean checkUsername(String username){return false;}
+    private boolean checkIfUsernameDoesntExists(String username) throws DataAccessException {
+        User temp = null;
+        temp = userDAO.find(username);
+        if(temp != null) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * This will call the fill function to fill the ancestors of that person.

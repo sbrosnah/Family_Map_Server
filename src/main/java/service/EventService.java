@@ -5,7 +5,6 @@ import dao.EventDAO;
 import model.AuthToken;
 import dao.AuthTokenDAO;
 import result.EventResult;
-import request.Request;
 import result.Result;
 
 
@@ -17,7 +16,7 @@ public class EventService {
      * @param eventID
      * @return
      */
-    public Result processRequest(Request request) {return null;}
+    public Result processRequest(String authToken, String eventID) {return null;}
 
     /**
      * validates that the event is associated with the current user

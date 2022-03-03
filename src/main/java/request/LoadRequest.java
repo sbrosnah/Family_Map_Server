@@ -5,7 +5,7 @@ import model.Person;
 import model.Event;
 import java.util.ArrayList;
 
-public class LoadRequest implements Request{
+public class LoadRequest {
     ArrayList<User> users;
     ArrayList<Person> people;
     ArrayList<Event> events;
