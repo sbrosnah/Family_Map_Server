@@ -24,6 +24,7 @@ public class PersonDAO extends DAO{
         ID = "personID";
     }
 
+
     /**
      * Insert a person into the database
      * @param person a person object
@@ -31,7 +32,7 @@ public class PersonDAO extends DAO{
      */
     public void insert(Person person) throws DataAccessException {
         String sql = "INSERT INTO person (personID, associatedUsername, firstname, lastname, gender, " +
-                "fatherID, motherID, spouseID) VALUES(?,?,?,?,?,?,?, ?)";
+                "fatherID, motherID, spouseID) VALUES(?,?,?,?,?,?,?,?)";
 
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -143,6 +144,12 @@ public class PersonDAO extends DAO{
                 }
             }
         }
+    }
+
+    public void deleteAllAssociated(String associatedUsername) throws DataAccessException {
+        ID = "associatedUsername";
+        delete(associatedUsername);
+        ID = "personID";
     }
 
     /**

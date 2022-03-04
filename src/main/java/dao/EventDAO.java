@@ -84,6 +84,68 @@ public class EventDAO extends DAO{
         return null;
     }
 
+    public Event findEventOfPerson(String personID, String eventType) throws DataAccessException {
+        Event event;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM event WHERE personID = ? AND eventType = ?;";
+        try(PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setString(1, personID);
+            stmt.setString(2, eventType);
+            rs = stmt.executeQuery();
+            if(rs.next()){
+                event = new Event(rs.getString("eventID"), rs.getString("associatedUsername"),
+                        rs.getString("personID"), rs.getFloat("latitude"),
+                        rs.getFloat("longitude"), rs.getString("country"),
+                        rs.getString("city"), rs.getString("eventType"),
+                        rs.getInt("year"));
+                return event;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding person");
+        } finally {
+            if(rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Event> getAllForPerson(String personID) throws DataAccessException {
+        Event event;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM event WHERE personID = ?;";
+        try(PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setString(1, personID);
+            rs = stmt.executeQuery();
+            ArrayList<Event> events = new ArrayList<>();
+            while(rs.next()){
+                event = new Event(rs.getString("eventID"), rs.getString("associatedUsername"),
+                        rs.getString("personID"), rs.getFloat("latitude"),
+                        rs.getFloat("longitude"), rs.getString("country"),
+                        rs.getString("city"), rs.getString("eventType"),
+                        rs.getInt("year"));
+                events.add(event);
+            }
+            return events;
+        }catch(SQLException e){
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding all for person");
+        } finally {
+            if(rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     /**
      * Get all of the Events in the database
      * @return an ArrayList of all the events
@@ -154,6 +216,12 @@ public class EventDAO extends DAO{
                 }
             }
         }
+    }
+
+    public void deleteAllAssociated(String username) throws DataAccessException {
+        ID = "associatedUsername";
+        delete(username);
+        ID = "eventID";
     }
 
     /**

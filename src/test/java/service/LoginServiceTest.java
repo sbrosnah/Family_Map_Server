@@ -11,7 +11,6 @@ import request.LoginRequest;
 import result.LoginResult;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class LoginServiceTest {
     private User user;

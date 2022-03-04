@@ -79,6 +79,24 @@ public class PersonDAOTest {
         assertEquals(0, allPeople.size());
     }
 
+    @Test
+    public void deleteAllAssociatedPass() throws DataAccessException {
+        personDAO.insert(person);
+        personDAO.insert(personTwo);
+        personDAO.insert(personThree);
+        personDAO.deleteAllAssociated(person.getAssociatedUsername());
+        assertEquals(personDAO.getAll().size(), 1);
+    }
+
+    @Test
+    public void deleteAllAssociatedFail() throws DataAccessException {
+        personDAO.insert(person);
+        personDAO.insert(personTwo);
+        personDAO.insert(personThree);
+        personDAO.deleteAllAssociated("blah");
+        assertEquals(personDAO.getAll().size(), 3);
+    }
+
 
     @Test
     public void clearPass() throws DataAccessException {

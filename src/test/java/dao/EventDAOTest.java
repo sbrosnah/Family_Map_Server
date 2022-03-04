@@ -27,11 +27,11 @@ public class EventDAOTest {
     public void setup() throws DataAccessException {
         db  = new Database();
         event = new Event("eirhwleikrj", "spencerbrosnahan", "9ihrowiehrj3e", 9, 10, "America",
-                "Heber", "Birth", 1989);
+                "Heber", "birth", 1989);
         eventTwo = new Event("eirhwidifj99dj", "spencerbrosnahan", "9ih", 99, 10, "America",
-                "Heber", "Birth", 1989);
+                "Heber", "birth", 1989);
         eventThree = new Event("eirh88rj", "johnathanbrosnahan", "9ihrowiehrj3e", 9, 10, "America",
-                "Heber", "Birth", 1989);
+                "Heber", "birth", 1989);
         Connection conn = db.getConnection();
         eventDAO = new EventDAO(conn);
         eventDAO.clear();
@@ -68,6 +68,29 @@ public class EventDAOTest {
     public void findFail() throws DataAccessException {
         eventDAO.insert(event);
         assertNull(eventDAO.find("kdkdkdkdkdkd"));
+    }
+
+    @Test
+    public void findEventOfPersonPass() throws DataAccessException {
+        eventDAO.insert(event);
+        Event compareTest = eventDAO.findEventOfPerson(event.getPersonID(), event.getEventType());
+        assertNotNull(compareTest);
+        assertEquals(compareTest, event);
+    }
+
+    @Test
+    public void findEventOfPersonFail() throws DataAccessException {
+        eventDAO.insert(event);
+        assertNull(eventDAO.findEventOfPerson(event.getPersonID(), "marriage"));
+    }
+
+    @Test
+    public void getAllForPersonPass() throws DataAccessException {
+        eventDAO.insert(event);
+        eventDAO.insert(eventTwo);
+        eventDAO.insert(eventThree);
+        ArrayList<Event> allForPerson = eventDAO.getAllForPerson("9ihrowiehrj3e");
+        assertEquals(2, allForPerson.size());
     }
 
     @Test
@@ -125,5 +148,23 @@ public class EventDAOTest {
         eventDAO.delete(eventTwo.getEventID());
         ArrayList<Event> allEvents = eventDAO.getAll();
         assertEquals(0, allEvents.size());
+    }
+
+    @Test
+    public void deleteAllAssociatedPass() throws DataAccessException {
+        eventDAO.insert(event);
+        eventDAO.insert(eventTwo);
+        eventDAO.insert(eventThree);
+        eventDAO.deleteAllAssociated(event.getUsername());
+        assertEquals(eventDAO.getAll().size(), 1);
+    }
+
+    @Test
+    public void deleteAllAssociatedFail() throws DataAccessException {
+        eventDAO.insert(event);
+        eventDAO.insert(eventTwo);
+        eventDAO.insert(eventThree);
+        eventDAO.deleteAllAssociated("blah");
+        assertEquals(eventDAO.getAll().size(), 3);
     }
 }

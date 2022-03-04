@@ -11,7 +11,7 @@ import service.LoginService;
 import result.LoginResult;
 
 public class LoginHandler extends Handler{
-    private static Logger logger = Logger.getLogger("RegisterHandler");
+    private static Logger logger = Logger.getLogger("LoginHandler");
 
 
     @Override

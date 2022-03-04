@@ -115,7 +115,7 @@ public class RegisterService {
      * @return
      */
     private boolean checkIfUsernameDoesntExists(String username) throws DataAccessException {
-        User temp = null;
+        User temp;
         temp = userDAO.find(username);
         if(temp != null) {
             return false;

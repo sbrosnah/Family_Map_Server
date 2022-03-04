@@ -14,7 +14,6 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 import dao.Database;
-import result.RegisterResult;
 
 public class LoginService {
     private static Logger logger = Logger.getLogger("LoginService");
@@ -54,21 +53,27 @@ public class LoginService {
 
                     db.closeConnection(true);
 
-                    String authToken = UUID.randomUUID().toString();
+                    logger.info("Checking that the passwords match");
+                    if(user.getPassword().equals(request.getPassword())) {
+                        String authToken = UUID.randomUUID().toString();
 
-                    AuthToken authTokenObj = new AuthToken(authToken, request.getUsername());
+                        AuthToken authTokenObj = new AuthToken(authToken, request.getUsername());
 
-                    authTokenDAO = new AuthTokenDAO(db.getConnection());
+                        authTokenDAO = new AuthTokenDAO(db.getConnection());
 
-                    authTokenDAO.insert(authTokenObj);
-                    result.setAuthToken(authToken);
-                    result.setUsername(request.getUsername());
-                    result.setPersonID(user.getPersonID());
-                    result.setSuccess(true);
+                        authTokenDAO.insert(authTokenObj);
+                        result.setAuthToken(authToken);
+                        result.setUsername(request.getUsername());
+                        result.setPersonID(user.getPersonID());
+                        result.setSuccess(true);
 
-                    db.closeConnection(true);
+                        db.closeConnection(true);
+
+                    } else {
+                        throw new Exception("Passwords do not match");
+                    }
                 } else {
-                    throw new Exception("User already in database");
+                    throw new Exception("Username provided is not in database");
                 }
 
             } else {
