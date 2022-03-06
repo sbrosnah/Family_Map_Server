@@ -1,16 +1,12 @@
 package dao;
 
-import dao.DataAccessException;
-import dao.Database;
-import dao.UserDAO;
 import model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.crypto.Data;
 import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -98,5 +94,17 @@ public class UserDAOTest {
         User compareTest = userDAO.find(user.getUsername());
         assertEquals(compareTest, user);
         assertNotEquals(compareTest, userTwo);
+    }
+
+    @Test
+    public void getAllPass() throws DataAccessException {
+        userDAO.insert(user);
+        userDAO.insert(userTwo);
+        ArrayList<User> allPeople = userDAO.getAll();
+        User compareTestOne = userDAO.find(allPeople.get(0).getUsername());
+        User compareTestTwo = userDAO.find(allPeople.get(1).getUsername());
+        assertEquals(compareTestOne, allPeople.get(0));
+        assertEquals(compareTestTwo, allPeople.get(1));
+        assertEquals(allPeople.size(), 2);
     }
 }

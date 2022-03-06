@@ -18,20 +18,27 @@ public class FileHandler implements HttpHandler {
         try {
             if (exchange.getRequestMethod().toLowerCase().equals("get")) {
                 String urlPath = exchange.getRequestURI().toString();
-                if (urlPath == null || urlPath.equals("/")){
+                if (urlPath.equals("") || urlPath.equals("/") || urlPath == null){
                     urlPath = "/index.html";
-                    String filePath = "web" + urlPath;
-                    File file = new File(filePath);
-                    if(file.exists()){
-                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-                        OutputStream respBody = exchange.getResponseBody();
-                        Files.copy(file.toPath(), respBody);
-                        respBody.close();
-                        success = true;
-                    } else {
-                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
-                        exchange.getResponseBody().close();
-                    }
+                }
+
+                String filePath = "web" + urlPath;
+                File file = new File(filePath);
+                if(file.exists()){
+                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+                    OutputStream respBody = exchange.getResponseBody();
+                    Files.copy(file.toPath(), respBody);
+                    respBody.close();
+                    success = true;
+                } else {
+                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
+                    OutputStream respBody = exchange.getResponseBody();
+                    String notFoundFilePath = "web/html/404.html";
+                    File notFoundFile = new File(notFoundFilePath);
+                    Files.copy(notFoundFile.toPath(), respBody);
+                    respBody.close();
+                    exchange.getResponseBody().close();
+                    success = true;
                 }
             } else {
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_METHOD, 0);

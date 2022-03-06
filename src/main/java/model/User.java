@@ -4,8 +4,8 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private char gender;
     private String personID;
 
@@ -23,8 +23,8 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstname;
+        this.lastName = lastname;
         this.gender = gender;
         this.personID = personID;
     }
@@ -77,36 +77,20 @@ public class User {
         this.email = email;
     }
 
-    /**
-     * Get the firstName of the user
-     * @return firstname string
-     */
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    /**
-     * Set the firstname of the user
-     * @param firstname String
-     */
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    /**
-     * get the lastname of the user
-     * @return lastname string
-     */
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    /**
-     * Set the lastname of the user
-     * @param lastname String
-     */
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**
@@ -154,8 +138,8 @@ public class User {
             return oUser.getUsername().equals(getUsername()) &&
                     oUser.getEmail().equals(getEmail()) &&
                     oUser.getPersonID().equals(getPersonID()) &&
-                    oUser.getFirstname().equals(getFirstname()) &&
-                    oUser.getLastname().equals(getLastname()) &&
+                    oUser.getFirstName().equals(getFirstName()) &&
+                    oUser.getLastName().equals(getLastName()) &&
                     oUser.getPassword().equals(getPassword()) &&
                     oUser.getGender() == getGender();
 

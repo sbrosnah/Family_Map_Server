@@ -40,34 +40,21 @@ public class LoginService {
         AuthTokenDAO authTokenDAO;
 
         try {
-            logger.info("opening connection, connecting dao, and loading data from request");
-            userDAO = new UserDAO(db.getConnection());
-
-            logger.info("Checking info from request");
             if(request.getUsername() != null && request.getPassword() != null){
-                logger.info("info was good");
-
-                logger.info("getting user from database");
                 if(checkIfUsernameExists(request.getUsername())){
-                    logger.info("Username found, generating authtoken and inserting to database");
-
-                    db.closeConnection(true);
-
-                    logger.info("Checking that the passwords match");
                     if(user.getPassword().equals(request.getPassword())) {
                         String authToken = UUID.randomUUID().toString();
 
                         AuthToken authTokenObj = new AuthToken(authToken, request.getUsername());
 
                         authTokenDAO = new AuthTokenDAO(db.getConnection());
-
                         authTokenDAO.insert(authTokenObj);
+                        db.closeConnection(true);
+
                         result.setAuthToken(authToken);
                         result.setUsername(request.getUsername());
                         result.setPersonID(user.getPersonID());
                         result.setSuccess(true);
-
-                        db.closeConnection(true);
 
                     } else {
                         throw new Exception("Passwords do not match");
@@ -101,7 +88,9 @@ public class LoginService {
         return result;
     }
     private boolean checkIfUsernameExists(String username) throws DataAccessException {
+        userDAO = new UserDAO(db.getConnection());
         user = userDAO.find(username);
+        db.closeConnection(false);
         if(user != null) {
             return true;
         }

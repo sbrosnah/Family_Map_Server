@@ -2,20 +2,17 @@ package service;
 
 import dao.DataAccessException;
 import dao.Database;
-import dao.UserDAO;
-import handler.RegisterHandler;
-import model.AuthToken;
+
 import model.User;
 
 import request.RegisterRequest;
 import result.RegisterResult;
-import server.Server;
-import service.RegisterService;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import javax.xml.crypto.Data;
+
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -68,13 +65,17 @@ public class RegisterServiceTest {
         request.setUsername(user.getUsername());
         request.setPassword(user.getPassword());
         request.setEmail(user.getEmail());
-        request.setFirstname(user.getFirstname());
-        request.setLastname(user.getLastname());
+        request.setFirstname(user.getFirstName());
+        request.setLastname(user.getLastName());
         request.setGender(String.valueOf(user.getGender()));
     }
 
     @AfterEach
-    public void teardown() throws DataAccessException {
+    public void teardown() throws DataAccessException, SQLException {
+
+        if(!db.getConnection().isClosed()){
+            db.closeConnection(false);
+        }
 
         user = null;
         db = null;

@@ -1,9 +1,12 @@
 package dao;
 
 import model.AuthToken;
+import model.Person;
+import model.User;
 
 import javax.xml.crypto.Data;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class AuthTokenDAO extends DAO{
     //private final Connection conn;
@@ -67,6 +70,36 @@ public class AuthTokenDAO extends DAO{
             }
         }
         return null;
+    }
+
+    public ArrayList<AuthToken> getAll() throws DataAccessException {
+        AuthToken authToken;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM authtoken;";
+        try(PreparedStatement stmt = conn.prepareStatement(sql)){
+            rs = stmt.executeQuery();
+            ArrayList<AuthToken> allAuthTokens = new ArrayList<>();
+            while(rs.next()){
+                authToken = createNewAuthTokenFromResultSet(rs);
+                allAuthTokens.add(authToken);
+            }
+            return allAuthTokens;
+        }catch(SQLException e){
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding person");
+        } finally {
+            if(rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private AuthToken createNewAuthTokenFromResultSet(ResultSet rs) throws SQLException {
+        return new AuthToken(rs.getString("authtoken"), rs.getString("associatedUsername"));
     }
 
     /**

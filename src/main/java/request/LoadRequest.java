@@ -7,8 +7,14 @@ import java.util.ArrayList;
 
 public class LoadRequest {
     ArrayList<User> users;
-    ArrayList<Person> people;
+    ArrayList<Person> persons;
     ArrayList<Event> events;
+
+    public LoadRequest(ArrayList<User> users, ArrayList<Person> persons, ArrayList<Event> events){
+        this.users = users;
+        this.persons = persons;
+        this.events = events;
+    }
 
     public ArrayList<User> getUsers() {
         return users;
@@ -18,12 +24,12 @@ public class LoadRequest {
         this.users = users;
     }
 
-    public ArrayList<Person> getPeople() {
-        return people;
+    public ArrayList<Person> getPersons() {
+        return persons;
     }
 
-    public void setPeople(ArrayList<Person> people) {
-        this.people = people;
+    public void setPersons(ArrayList<Person> persons) {
+        this.persons = persons;
     }
 
     public ArrayList<Event> getEvents() {

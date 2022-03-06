@@ -1,15 +1,10 @@
 package dao;
 
-import dao.DataAccessException;
-import dao.Database;
-import dao.PersonDAO;
 import model.Person;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.crypto.Data;
-import java.sql.Array;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -20,6 +15,7 @@ public class PersonDAOTest {
     private Person person;
     private Person personTwo;
     private Person personThree;
+    private Person personFour;
     private PersonDAO personDAO;
 
     @BeforeEach
@@ -31,6 +27,8 @@ public class PersonDAOTest {
                 'f', "89", "90", "3");
         personThree = new Person("9", "johnathanbrosnahan", "pillow", "Lee",
                 'f', "89", "90", "3");
+        personFour = new Person("7887", "johnathanbrosnahan", "pillow", "Lee",
+                'f', null, null, null);
         Connection conn = db.getConnection();
         personDAO = new PersonDAO(conn);
         personDAO.clear();
@@ -53,6 +51,14 @@ public class PersonDAOTest {
     public void insertFail() throws DataAccessException {
         personDAO.insert(person);
         assertThrows(DataAccessException.class, ()-> personDAO.insert(person));
+    }
+
+    @Test
+    public void insertNullPass() throws DataAccessException {
+        personDAO.insert(personFour);
+        Person compareTest = personDAO.find(personFour.getPersonID());
+        assertNotNull(compareTest);
+        assertEquals(compareTest, personFour);
     }
 
     @Test

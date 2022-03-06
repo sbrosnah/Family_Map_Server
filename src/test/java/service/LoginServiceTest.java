@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import request.LoginRequest;
 import result.LoginResult;
 
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginServiceTest {
@@ -52,9 +54,11 @@ public class LoginServiceTest {
     }
 
     @AfterEach
-    public void teardown() throws DataAccessException {
+    public void teardown() throws DataAccessException, SQLException {
 
-
+        if(!db.getConnection().isClosed()){
+            db.closeConnection(false);
+        }
         user = null;
         db = null;
         loginService = null;

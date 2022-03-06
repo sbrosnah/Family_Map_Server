@@ -3,12 +3,44 @@ package result;
 public class PersonResult extends Result{
     String associatedUsername;
     String personID;
-    String firstname;
-    String lastname;
-    char gender;
+    String firstName;
+    String lastName;
+    String gender;
     String fatherID;
     String motherID;
     String spouseID;
+
+    public String getAssociatedUsername() {
+        return associatedUsername;
+    }
+
+    public void setAssociatedUsername(String associatedUsername) {
+        this.associatedUsername = associatedUsername;
+    }
+
+    public String getPersonID() {
+        return personID;
+    }
+
+    public void setPersonID(String personID) {
+        this.personID = personID;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public String getFatherID() {
         return fatherID;
@@ -34,43 +66,11 @@ public class PersonResult extends Result{
         this.spouseID = spouseID;
     }
 
-    public String getAssociatedUsername() {
-        return associatedUsername;
-    }
-
-    public void setAssociatedUsername(String associatedUsername) {
-        this.associatedUsername = associatedUsername;
-    }
-
-    public String getPersonID() {
-        return personID;
-    }
-
-    public void setPersonID(String personID) {
-        this.personID = personID;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 }

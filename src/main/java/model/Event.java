@@ -97,7 +97,7 @@ public class Event {
      * Get the Latitude
      * @return a latitude double
      */
-    public double getLatitude() {
+    public float getLatitude() {
         return latitude;
     }
 
@@ -115,7 +115,7 @@ public class Event {
      * Get the Longitude
      * @return a longitude float
      */
-    public double getLongitude() {
+    public float getLongitude() {
         return longitude;
     }
 

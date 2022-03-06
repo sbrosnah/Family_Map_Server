@@ -4,8 +4,8 @@ public class RegisterRequest {
     private String username;
     private String password;
     private String email;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private String gender;
 
     /**
@@ -50,19 +50,19 @@ public class RegisterRequest {
     }
 
     public String getFirstname() {
-        return firstname;
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstname(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastname() {
-        return lastname;
+        return lastName;
     }
 
     public void setLastname(String lastname) {
-        this.lastname = lastname;
+        this.lastName = lastname;
     }
 
     public String getGender() {
@@ -75,7 +75,7 @@ public class RegisterRequest {
 
     @Override
     public String toString() {
-        return "Username: " + username + ", Password: " + password + ", Email: " + email + ", Firstname: " + firstname + ", Lastname: " +
-                lastname + ", Gender: " + gender;
+        return "Username: " + username + ", Password: " + password + ", Email: " + email + ", Firstname: " + firstName + ", Lastname: " +
+                lastName + ", Gender: " + gender;
     }
 }

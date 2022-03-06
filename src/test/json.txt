@@ -1,0 +1,68 @@
+{
+    "users":[
+        {
+            "username": "spencer",
+            "password": "cheese",
+            "email": "cheese@cup.com",
+            "firstname": "Juan",
+            "lastname": "martinez",
+            "gender": "m",
+            "personID": "kdkdkfjdkfkdo"
+        },
+        {
+            "username": "spence",
+            "password": "cheese",
+            "email": "cheese@cup.com",
+            "firstname": "Juan",
+            "lastname": "martinez",
+            "gender": "m",
+            "personID": "kdkdkfjdkfkdo"
+        }
+    ],
+    "persons":[
+        {
+            "personID": "dkfjdkfjdkidj",
+            "associatedUsername": "spence",
+            "firstName": "myname",
+            "lastName": "stillMyname",
+            "gender": 'm',
+            "fatherID": "kddkdk",
+            "motherID": "ererere",
+            "spouseID": "12121212"
+        },
+        {
+            "personID": "dkfidj",
+            "associatedUsername": "spence",
+            "firstName": "mme",
+            "lastName": "stillame",
+            "gender": 'm',
+            "fatherID": "kdk",
+            "motherID": "erere",
+            "spouseID": "12112"
+        }
+    ],
+    "events":[
+        {
+            "eventID": "89d",
+            "associatedUsername": "spence",
+            "personID": "hhdd",
+            "latitude": 33.3,
+            "longitude": 44444.3,
+            "country": "mera",
+            "city": "her",
+            "eventType": "marage",
+            "year": 223
+        },
+        {
+            "eventID": "899di9d",
+            "associatedUsername": "spence",
+            "personID": "hhdhccd",
+            "latitude": 343.3,
+            "longitude": 4444444.3,
+            "country": "merica",
+            "city": "heber",
+            "eventType": "marriage",
+            "year": 2023
+        }
+    ]
+}

@@ -21,6 +21,7 @@ public class RegisterService {
     UserDAO userDAO;
     Database db;
     RegisterResult result;
+    FillService fillService;
     /**
      * Takes a request, processes it, and then returns the result
      * @return a RegisterResult object
@@ -67,6 +68,9 @@ public class RegisterService {
 
                     logger.info("logging user in");
 
+                    fillService = new FillService();
+                    fillService.processRequest(user.getUsername(), null);
+
 
                     LoginRequest loginRequest = new LoginRequest();
                     loginRequest.setUsername(user.getUsername());
@@ -86,7 +90,7 @@ public class RegisterService {
             } else {
                 throw new Exception("Bad data in request");
             }
-
+            return result;
         } catch(Exception ex){
             ex.printStackTrace();
             logger.info("exception thrown");
@@ -105,7 +109,6 @@ public class RegisterService {
                 logger.info(ex.getMessage());
             }
         }
-
         return result;
     }
 

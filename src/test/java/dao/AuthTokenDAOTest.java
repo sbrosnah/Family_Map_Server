@@ -1,17 +1,12 @@
 package dao;
 
-import dao.DataAccessException;
-import dao.Database;
-import dao.AuthTokenDAO;
 import model.AuthToken;
-import model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.crypto.Data;
 import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -97,6 +92,18 @@ public class AuthTokenDAOTest {
         AuthToken compareTest = authTokenDAO.find(authToken.getAuthtoken());
         assertEquals(compareTest, authToken);
         assertNotEquals(compareTest, authTokenTwo);
+    }
+
+    @Test
+    public void getAllPass() throws DataAccessException {
+        authTokenDAO.insert(authToken);
+        authTokenDAO.insert(authTokenTwo);
+        ArrayList<AuthToken> allAuthTokens = authTokenDAO.getAll();
+        AuthToken compareTestOne = authTokenDAO.find(allAuthTokens.get(0).getAuthtoken());
+        AuthToken compareTestTwo = authTokenDAO.find(allAuthTokens.get(1).getAuthtoken());
+        assertEquals(compareTestOne, allAuthTokens.get(0));
+        assertEquals(compareTestTwo, allAuthTokens.get(1));
+        assertEquals(allAuthTokens.size(), 2);
     }
 
 }

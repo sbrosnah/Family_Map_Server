@@ -44,33 +44,25 @@ public class Server {
 
         server.setExecutor(null);
 
-        //TODO: create javadoc comments
         logger.info("Creating contexts");
 
-        /**
-         * This creates the /user/register context and sends the request to the RegisterHandler()
-         */
         server.createContext("/user/register", new RegisterHandler());
 
-        //TODO: Implement all of the handlers and uncomment the contexts
-
         server.createContext("/user/login", new LoginHandler());
-        /*
-        server.createContext("/clear", new ClearHandler());
 
-        //TODO: figure out how to pass in the username and generations through the URL
-        server.createContext("/user/[username]/{generations}", new FillHandler());
+        server.createContext("/fill/", new FillHandler());
+
+        server.createContext("/clear", new ClearHandler());
 
         server.createContext("/load", new LoadHandler());
 
-        server.createContext("/person/[personID]", new PersonHandler());
+        server.createContext("/person/", new PersonHandler());
 
         server.createContext("/person", new AllPersonHandler());
 
-        server.createContext("/event/[eventID]", new EventHandler());
+        server.createContext("/event/", new EventHandler());
 
         server.createContext("/event", new AllEventHandler());
-        */
 
         server.createContext("/", new FileHandler());
 

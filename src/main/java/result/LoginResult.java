@@ -1,16 +1,16 @@
 package result;
 
 public class LoginResult extends Result{
-    String authToken;
+    String authtoken;
     String username;
     String personID;
 
     public String getAuthToken() {
-        return authToken;
+        return authtoken;
     }
 
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
+    public void setAuthToken(String authtoken) {
+        this.authtoken = authtoken;
     }
 
     public String getUsername() {

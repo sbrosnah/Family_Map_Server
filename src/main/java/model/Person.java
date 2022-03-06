@@ -34,6 +34,13 @@ public class Person {
         this.spouseID = spouseID;
     }
 
+    @Override
+    public String toString() {
+        return "personID: " + personID + ", associatedUsername: " + associatedUsername + ", firstname: " + firstName +
+                ", lastname: " + lastName + ", gender; " + gender + ", fatherID: " + fatherID + ", motherID: " + motherID +
+                ", spouseID: " + spouseID;
+    }
+
     /**
      * get the personID string
      * @return personID string
@@ -172,16 +179,29 @@ public class Person {
             return false;
         if (o instanceof Person) {
             Person oPerson = (Person) o;
-            return oPerson.getPersonID().equals(getPersonID()) &&
+            if(!(oPerson.getPersonID().equals(getPersonID()) &&
                     oPerson.getAssociatedUsername().equals(getAssociatedUsername()) &&
                     oPerson.getFirstName().equals(getFirstName()) &&
                     oPerson.getLastName().equals(getLastName()) &&
-                    oPerson.getGender() == (getGender()) &&
-                    oPerson.getFatherID().equals(getFatherID()) &&
-                    oPerson.getMotherID().equals(getMotherID()) &&
-                    oPerson.getSpouseID().equals(getSpouseID());
+                    oPerson.getGender() == (getGender()))){
+
+                return false;
+            }
+            if(oPerson.getFatherID() == null && getFatherID() != null) {
+                return false;
+            }
+            if(oPerson.getFatherID() != null && getFatherID() == null) {
+                return false;
+            }
+            if(getFatherID() == null && oPerson.getFatherID() == null) {
+                return true;
+            }
+            if(getFatherID().equals(oPerson.getFatherID())){
+                return true;
+            }
         } else {
             return false;
         }
+        return false;
     }
 }

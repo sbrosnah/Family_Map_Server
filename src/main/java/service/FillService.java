@@ -11,8 +11,6 @@ import model.Location;
 import model.ObjectCatalog;
 import model.Catalog;
 
-import service.Gender;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -120,8 +118,7 @@ public class FillService {
 
                     //If we made it to this point, we can say that it was a success
                     result.setSuccess(true);
-                    result.setMessage("Successfully added " + totalPeople + " persons and " + totalEvents + "to" +
-                                        " the database");
+                    result.setMessage("Successfully added " + totalPeople + " persons and " + totalEvents + " events to the database.");
                 }else {
                    throw new Exception("Username not found in database");
                 }
@@ -195,8 +192,8 @@ public class FillService {
         //If we are generating a person object for the root user, we will use the user info
         //else we generate random info
         if(iterationCounter == 0) {
-            firstName = user.getFirstname();
-            lastName = user.getLastname();
+            firstName = user.getFirstName();
+            lastName = user.getLastName();
             personID = user.getPersonID();
         } else {
             firstName = getRandomFirstName(gender);
@@ -279,7 +276,7 @@ public class FillService {
     }
 
     private Event generateDeathEvent(Person person, int iteration) {
-        int earliestPossibleDeath = presentYear - deathBinWidth - (childHoodBinWidth * iteration);
+        int earliestPossibleDeath = presentYear - deathBinWidth - (childHoodBinWidth * (iteration - 1));
         earliestPossibleDeath += marriageBinWidth;
         int randNum = randomizer.nextInt(deathBinWidth);
         int deathYear = earliestPossibleDeath + randNum;

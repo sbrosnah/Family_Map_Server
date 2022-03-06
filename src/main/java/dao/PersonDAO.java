@@ -41,9 +41,24 @@ public class PersonDAO extends DAO{
             stmt.setString(3, person.getFirstName());
             stmt.setString(4, person.getLastName());
             stmt.setString(5, Character.toString(person.getGender()));
-            stmt.setString(6, person.getFatherID());
-            stmt.setString(7, person.getMotherID());
-            stmt.setString(8, person.getSpouseID());
+            String fatherID = person.getFatherID();
+            if(fatherID == null){
+                stmt.setNull(6, Types.NULL);
+            } else {
+                stmt.setString(6, fatherID);
+            }
+            String motherID = person.getMotherID();
+            if(motherID == null){
+                stmt.setNull(7, Types.NULL);
+            } else {
+                stmt.setString(7, motherID);
+            }
+            String spouseID = person.getSpouseID();
+            if(spouseID == null){
+                stmt.setNull(8, Types.NULL);
+            } else {
+                stmt.setString(8, spouseID);
+            }
 
             stmt.executeUpdate();
         } catch (SQLException e){
@@ -151,40 +166,6 @@ public class PersonDAO extends DAO{
         delete(associatedUsername);
         ID = "personID";
     }
-
-    /**
-     * Delete a person from the database
-     * @param personID a String
-     * @throws DataAccessException
-     */
-    /*
-    public void delete(String personID) throws DataAccessException {
-        String sql = "DELETE FROM person WHERE personID = ?;";
-        try(PreparedStatement stmt = conn.prepareStatement(sql)){
-            stmt.setString(1, personID);
-            stmt.executeUpdate();
-        } catch (SQLException e){
-            e.printStackTrace();
-            throw new DataAccessException("Error encountered while deleting user");
-        }
-    }
-    */
-
-
-    /**
-     * Clear the Person table in the database
-     * @throws DataAccessException
-     */
-    /*
-    public void clear() throws DataAccessException {
-        try (Statement stmt = conn.createStatement()){
-            String sql = "DELETE FROM person";
-            stmt.executeUpdate(sql);
-        } catch (SQLException e) {
-            throw new DataAccessException("SQL Error encountered while clearing tables");
-        }
-    }
-    */
 
     private Person createNewPersonFromResultSet(ResultSet rs) throws SQLException {
         return new Person(rs.getString("personID"), rs.getString("associatedUsername"),
